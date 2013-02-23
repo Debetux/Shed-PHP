@@ -22,7 +22,11 @@
 		}
 
 		public function read_cache(){
-			
+			if (file_exists($this->cacheFilePath) && time() - $cachetime < filemtime($this->cacheFilePath)) {
+				echo "<!-- Cached copy, generated ".date('H:i', filemtime($this->cacheFilePath))." -->\n";
+				readfile($this->cacheFilePath);
+				exit;
+			}
 		}
 	}
 ?>
